@@ -31,6 +31,29 @@ python -m http.server 8000
 
 Then open `http://localhost:8000/`.
 
+If you prefer the npm script wrapper:
+
+```sh
+npm start
+```
+
+This runs the same local static server command.
+
+## Project Commands
+
+```sh
+npm run check
+```
+
+Checks `pendulum.js` and `sketch.js` for JavaScript syntax errors with Node.
+
+```sh
+npm run lint
+npm test
+```
+
+Both currently run the same syntax check. They are intentionally lightweight placeholders for future linting or automated tests.
+
 ## Project Structure
 
 ```text
