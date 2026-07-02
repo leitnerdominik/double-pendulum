@@ -1,10 +1,10 @@
 class Pendulum {
     constructor(randomAngle) {
         this.len = 125;
-        this.angle = randomAngle ? random(TWO_PI) : PI/2;
+        this.angle = randomAngle ? random(TWO_PI) : PI / 2;
         this.mass = 30;
         this.vel = 0;
-        this.acceleration = 0;
+        this.acc = 0;
 
         this.linePos = createVector(0, 0);
 
@@ -12,10 +12,10 @@ class Pendulum {
     }
 
     update(prevPen) {
-        if(prevPen) {
-            this.pos = createVector(prevPen.x+this.len*sin(this.angle), prevPen.y+this.len*cos(this.angle));
+        if (prevPen) {
+            this.pos = createVector(prevPen.x + this.len * sin(this.angle), prevPen.y + this.len * cos(this.angle));
         } else {
-            this.pos = createVector(this.len*sin(this.angle), this.len*cos(this.angle));
+            this.pos = createVector(this.len * sin(this.angle), this.len * cos(this.angle));
         }
     }
 
