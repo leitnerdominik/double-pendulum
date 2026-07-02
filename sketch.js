@@ -103,15 +103,34 @@ function drawCurrentTrail() {
     prevPos.y = pendulum2.pos.y;
 }
 
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    center = createVector(width / 2, height / 2);
+    resetTrailBuffer();
+}
+
 function init() {
     if (data) {
         pendulum1 = new Pendulum(data.randomAngle);
         pendulum2 = new Pendulum(data.randomAngle);
+        applySelectedSettings();
     } else {
         pendulum1 = new Pendulum();
         pendulum2 = new Pendulum();
     }
 
+    resetTrailBuffer();
+}
+
+function applySelectedSettings() {
+    pendulum1.len = data.sliderLen1.value;
+    pendulum2.len = data.sliderLen2.value;
+    pendulum1.mass = data.sliderMass1.value;
+    pendulum2.mass = data.sliderMass2.value;
+    gravity = data.gravity.value;
+}
+
+function resetTrailBuffer() {
     prevPos = createVector(-1, -1);
 
     buffer = createGraphics(width, height);
