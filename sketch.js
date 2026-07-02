@@ -12,6 +12,14 @@ let controlKit;
 let data;
 
 function setup() {
+    if (!canStartSketch()) {
+        if (typeof noLoop === 'function') {
+            noLoop();
+        }
+
+        return;
+    }
+
     createCanvas(windowWidth, windowHeight);
 
     center = createVector(width / 2, height / 2);
@@ -45,6 +53,44 @@ function setup() {
     };
 
     createControlKit();
+}
+
+function canStartSketch() {
+    const missing = [];
+
+    if (typeof createCanvas !== 'function' || typeof createVector !== 'function') {
+        missing.push('p5.js');
+    }
+
+    if (typeof ControlKit !== 'function') {
+        missing.push('ControlKit');
+    }
+
+    if (typeof Pendulum !== 'function') {
+        missing.push('pendulum.js');
+    }
+
+    if (typeof calculateAccelerations !== 'function') {
+        missing.push('physics.js');
+    }
+
+    if (missing.length === 0) {
+        return true;
+    }
+
+    showStartupError(`The demo could not start because ${missing.join(', ')} did not load.`);
+    return false;
+}
+
+function showStartupError(message) {
+    console.error(message);
+
+    const target = document.getElementById('startup-error');
+
+    if (target) {
+        target.textContent = message;
+        target.classList.add('is-visible');
+    }
 }
 
 function draw() {
@@ -150,6 +196,11 @@ function togglePaused() {
 }
 
 let createControlKit = () => {
+    if (typeof ControlKit !== 'function') {
+        showStartupError('The controls could not start because ControlKit did not load.');
+        return;
+    }
+
     controlKit = new ControlKit();
 
     controlKit

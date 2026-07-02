@@ -52,6 +52,26 @@
                 padding: 1rem;
             }
 
+            .startup-error {
+                display: none;
+                position: fixed;
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+                z-index: 2;
+                max-width: 32rem;
+                padding: 0.85rem 1rem;
+                background: rgba(20, 24, 32, 0.92);
+                border: 1px solid rgba(255, 255, 255, 0.22);
+                color: #fff;
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            .startup-error.is-visible {
+                display: block;
+            }
+
             @media (max-width: 700px) {
                 .demo-title {
                     top: auto;
@@ -69,6 +89,10 @@
                 .demo-title p {
                     font-size: 0.75rem;
                 }
+
+                .startup-error {
+                    font-size: 0.8rem;
+                }
             }
         </style>
     </head>
@@ -79,11 +103,49 @@
         </main>
 
         <noscript>This double pendulum demo requires JavaScript to run.</noscript>
+        <div id="startup-error" class="startup-error" role="alert"></div>
 
         <script src="libraries/controlKit.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="libraries/p5.js" type="text/javascript" charset="utf-8"></script>
         <script src="pendulum.js" type="text/javascript" charset="utf-8"></script>
         <script src="physics.js" type="text/javascript" charset="utf-8"></script>
         <script src="sketch.js" type="text/javascript" charset="utf-8"></script>
+        <script>
+            window.addEventListener('load', function () {
+                var missing = [];
+
+                if (typeof p5 !== 'function') {
+                    missing.push('p5.js');
+                }
+
+                if (typeof ControlKit !== 'function') {
+                    missing.push('ControlKit');
+                }
+
+                if (typeof Pendulum !== 'function') {
+                    missing.push('pendulum.js');
+                }
+
+                if (typeof calculateAccelerations !== 'function') {
+                    missing.push('physics.js');
+                }
+
+                if (typeof setup !== 'function') {
+                    missing.push('sketch.js');
+                }
+
+                if (missing.length > 0) {
+                    var message = 'The demo could not start because ' + missing.join(', ') + ' did not load.';
+                    var target = document.getElementById('startup-error');
+
+                    console.error(message);
+
+                    if (target) {
+                        target.textContent = message;
+                        target.classList.add('is-visible');
+                    }
+                }
+            });
+        </script>
     </body>
 </html>
