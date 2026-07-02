@@ -12,17 +12,72 @@
                 padding: 0;
                 height: 100%;
                 background: #000;
+                color: #f4f7fb;
+                font-family: Arial, sans-serif;
+                overflow: hidden;
+            }
+
+            canvas {
+                display: block;
+            }
+
+            .demo-title {
+                position: fixed;
+                top: 1rem;
+                right: 1rem;
+                z-index: 1;
+                max-width: 18rem;
+                pointer-events: none;
+                text-align: right;
+                text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85);
+            }
+
+            .demo-title h1 {
+                margin: 0;
+                font-size: 1.25rem;
+                font-weight: 700;
+                letter-spacing: 0;
+            }
+
+            .demo-title p {
+                margin: 0.35rem 0 0;
+                color: rgba(244, 247, 251, 0.78);
+                font-size: 0.85rem;
+                line-height: 1.35;
             }
 
             noscript {
                 color: #fff;
                 display: block;
-                font-family: Arial, sans-serif;
                 padding: 1rem;
+            }
+
+            @media (max-width: 700px) {
+                .demo-title {
+                    top: auto;
+                    right: auto;
+                    bottom: 1rem;
+                    left: 1rem;
+                    max-width: min(18rem, calc(100vw - 2rem));
+                    text-align: left;
+                }
+
+                .demo-title h1 {
+                    font-size: 1rem;
+                }
+
+                .demo-title p {
+                    font-size: 0.75rem;
+                }
             }
         </style>
     </head>
     <body>
+        <main class="demo-title" aria-label="Demo title">
+            <h1>Double Pendulum</h1>
+            <p>Chaotic motion with live mass, length, gravity, and trace controls.</p>
+        </main>
+
         <noscript>This double pendulum demo requires JavaScript to run.</noscript>
 
         <script src="libraries/controlKit.min.js" type="text/javascript" charset="utf-8"></script>

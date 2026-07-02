@@ -40,7 +40,8 @@ function setup() {
             range: [1, 20]
         },
         showLines: true,
-        randomAngle: false
+        randomAngle: false,
+        paused: false
     };
 
     createControlKit();
@@ -51,11 +52,17 @@ function draw() {
     imageMode(CORNER);
 
     drawTrailBuffer();
-    updateAccelerations();
+    if (!data.paused) {
+        updateAccelerations();
+    }
+
     updatePendulumPositions();
     drawPendulums();
-    advancePendulums();
-    drawCurrentTrail();
+
+    if (!data.paused) {
+        advancePendulums();
+        drawCurrentTrail();
+    }
 }
 
 function drawTrailBuffer() {
@@ -138,6 +145,10 @@ function resetTrailBuffer() {
     buffer.translate(center.x, center.y);
 }
 
+function togglePaused() {
+    data.paused = !data.paused;
+}
+
 let createControlKit = () => {
     controlKit = new ControlKit();
 
@@ -148,28 +159,28 @@ let createControlKit = () => {
         })
         .addSlider(data.sliderLen1, 'value', 'range', {
             dp: 0,
-            label: 'rod-1',
+            label: 'rod 1 length',
             onChange: () => {
                 pendulum1.len = data.sliderLen1.value;
             }
         })
         .addSlider(data.sliderLen2, 'value', 'range', {
             dp: 0,
-            label: 'rod-2',
+            label: 'rod 2 length',
             onChange: () => {
                 pendulum2.len = data.sliderLen2.value;
             }
         })
         .addSlider(data.sliderMass1, 'value', 'range', {
             dp: 0,
-            label: 'mass-1',
+            label: 'mass 1',
             onChange: () => {
                 pendulum1.mass = data.sliderMass1.value;
             }
         })
         .addSlider(data.sliderMass2, 'value', 'range', {
             dp: 0,
-            label: 'mass-2',
+            label: 'mass 2',
             onChange: () => {
                 pendulum2.mass = data.sliderMass2.value;
             }
@@ -182,7 +193,7 @@ let createControlKit = () => {
             }
         })
         .addCheckbox(data, 'showLines', {
-            label: 'show lines',
+            label: 'show trace',
             onChange: () => {
                 return !data.showLines;
             }
@@ -193,5 +204,7 @@ let createControlKit = () => {
                 return !data.randomAngle;
             }
         })
-        .addButton('reset', init);
+        .addButton('reset', init)
+        .addButton('pause / resume', togglePaused)
+        .addButton('clear trace', resetTrailBuffer);
 };
