@@ -1,22 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Double Pendulum</title>
 
         <style media="screen">
+            html,
             body {
                 margin: 0;
                 padding: 0;
+                height: 100%;
+                background: #000;
+            }
+
+            noscript {
+                color: #fff;
+                display: block;
+                font-family: Arial, sans-serif;
+                padding: 1rem;
             }
         </style>
     </head>
     <body>
+        <noscript>This double pendulum demo requires JavaScript to run.</noscript>
 
-    	<script src="libraries\controlKit.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="libraries\p5.js" type="text/javascript" charset="utf-8"></script>
+        <script src="libraries/controlKit.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="libraries/p5.js" type="text/javascript" charset="utf-8"></script>
         <script src="pendulum.js" type="text/javascript" charset="utf-8"></script>
         <script src="sketch.js" type="text/javascript" charset="utf-8"></script>
-
     </body>
 </html>
