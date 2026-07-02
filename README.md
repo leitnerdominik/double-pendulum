@@ -62,8 +62,6 @@ sketch.js               p5.js setup, draw loop, simulation flow, and UI wiring
 pendulum.js             Pendulum class for position updates and rendering
 physics.js              Double-pendulum acceleration calculation
 libraries/              Vendored p5.js and ControlKit dependencies
-docs/                   Project planning and maintenance notes
-AGENTS.md               Contributor guide for future agents and maintainers
 ```
 
 ## Technology
@@ -71,7 +69,3 @@ AGENTS.md               Contributor guide for future agents and maintainers
 - [p5.js](https://p5js.org/) powers the canvas, animation loop, drawing primitives, and vector math.
 - ControlKit provides the on-screen sliders, checkboxes, and reset button.
 - The project intentionally stays static: no framework, bundler, package manager, or backend is required.
-
-## Development Notes
-
-After changes, verify the page in a browser and check the console for errors. Test animation startup, slider changes, trace toggling, random starts, reset behavior, and window resizing.
