@@ -58,8 +58,9 @@ Both currently run the same syntax check. They are intentionally lightweight pla
 
 ```text
 index.html              Browser entry point
-sketch.js               p5.js setup, draw loop, physics, and UI wiring
+sketch.js               p5.js setup, draw loop, simulation flow, and UI wiring
 pendulum.js             Pendulum class for position updates and rendering
+physics.js              Double-pendulum acceleration calculation
 libraries/              Vendored p5.js and ControlKit dependencies
 docs/                   Project planning and maintenance notes
 AGENTS.md               Contributor guide for future agents and maintainers

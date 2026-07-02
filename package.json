@@ -5,7 +5,7 @@
   "description": "Interactive p5.js double pendulum visualization.",
   "scripts": {
     "start": "python -m http.server 8000",
-    "check": "node --check pendulum.js && node --check sketch.js",
+    "check": "node --check pendulum.js && node --check physics.js && node --check sketch.js",
     "lint": "npm run check",
     "test": "npm run check"
   }

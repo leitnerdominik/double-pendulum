@@ -9,9 +9,6 @@ Desktop.ini
 *.swp
 *.swo
 
-AGENTS.md
-docs/
-
 # Logs and local runtime output
 *.log
 npm-debug.log*

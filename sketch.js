@@ -1,11 +1,6 @@
 let pendulum1;
 let pendulum2;
 
-let numP1_1,
-    numP1_2;
-let numP2_1,
-    numP2_2;
-
 let prevPos;
 
 let gravity = 1;
@@ -55,46 +50,49 @@ function draw() {
     background(0);
     imageMode(CORNER);
 
+    drawTrailBuffer();
+    updateAccelerations();
+    updatePendulumPositions();
+    drawPendulums();
+    advancePendulums();
+    drawCurrentTrail();
+}
+
+function drawTrailBuffer() {
     if (data.showLines) {
         image(buffer, 0, 0, width, height);
     }
+}
 
-    numP1_1 = -gravity * (2 * pendulum1.mass + pendulum2.mass) * sin(pendulum1.angle) -
-               pendulum2.mass * gravity * sin(pendulum1.angle - 2 * pendulum2.angle) -
-               2 * sin(pendulum1.angle - pendulum2.angle) * pendulum2.mass *
-               (Math.pow(pendulum2.vel, 2) * pendulum2.len +
-                Math.pow(pendulum1.vel, 2) * pendulum1.len *
-                cos(pendulum1.angle - pendulum2.angle));
-    numP1_2 = pendulum1.len * (2 * pendulum1.mass + pendulum2.mass -
-              pendulum2.mass * cos(2 * pendulum1.angle - 2 * pendulum2.angle));
+function updateAccelerations() {
+    const accelerations = calculateAccelerations(pendulum1, pendulum2, gravity);
 
-    pendulum1.acc = numP1_1 / numP1_2;
+    pendulum1.acc = accelerations.first;
+    pendulum2.acc = accelerations.second;
+}
 
-    numP2_1 = 2 * sin(pendulum1.angle - pendulum2.angle) *
-              (Math.pow(pendulum1.vel, 2) * pendulum1.len * (pendulum1.mass + pendulum2.mass) +
-               gravity * (pendulum1.mass + pendulum2.mass) * cos(pendulum1.angle) +
-               Math.pow(pendulum2.vel, 2) * pendulum2.len * pendulum2.mass *
-               cos(pendulum1.angle - pendulum2.angle));
-    numP2_2 = pendulum2.len * (2 * pendulum1.mass + pendulum2.mass - pendulum2.mass *
-               cos(2 * pendulum1.angle - 2 * pendulum2.angle));
-
-    pendulum2.acc = numP2_1 / numP2_2;
-
+function updatePendulumPositions() {
     pendulum2.linePos = pendulum1.pos;
 
     translate(center.x, center.y);
     pendulum1.update();
     pendulum2.update(pendulum1.pos);
+}
 
+function drawPendulums() {
     pendulum1.show();
     pendulum2.show();
+}
 
+function advancePendulums() {
     pendulum1.vel += pendulum1.acc;
     pendulum2.vel += pendulum2.acc;
 
     pendulum1.angle += pendulum1.vel;
     pendulum2.angle += pendulum2.vel;
+}
 
+function drawCurrentTrail() {
     buffer.stroke(255, 255, 255, 70);
 
     if (prevPos.x !== -1) {
